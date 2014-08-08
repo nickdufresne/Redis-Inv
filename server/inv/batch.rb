@@ -9,6 +9,13 @@ class Inv::Batch
     end
   end
 
+  def transactions=(trans = [])
+    @transactions = []
+    trans.each do |atts|
+      @transactions << Transaction.new(atts)
+    end
+  end
+
   def run
     self.created_at ||= Time.zone.now
     self.id = Inv.redis.incr("inv:batch:_id")
